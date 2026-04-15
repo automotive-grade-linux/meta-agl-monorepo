@@ -1,0 +1,37 @@
+From 3b3d3adeacfea49ca9fed757ca5190617ce0e657 Mon Sep 17 00:00:00 2001
+From: Scott Murray <scott.murray@konsulko.com>
+Date: Mon, 30 Mar 2026 13:30:50 -0400
+Subject: [PATCH] Revert commit 68761d3f1
+
+Revert addition of new assert as it is getting triggered by the
+Flutter embedder running against agl-compositor.
+
+Upstream-Status: Inappropriate [AGL specific]
+Signed-off-by: Scott Murray <scott.murray@konsulko.com>
+---
+ libweston/compositor.c | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/libweston/compositor.c b/libweston/compositor.c
+index 4630a91..e1b4369 100644
+--- a/libweston/compositor.c
++++ b/libweston/compositor.c
+@@ -3734,15 +3734,6 @@ weston_output_repaint(struct weston_output *output)
+ 	if (output->paint_node_list_needs_rebuild)
+ 		weston_output_build_z_order_list(ec, output);
+ 
+-	/* If the scene graph is empty, we could end up passing a buffer
+-	 * we've never drawn into to a hardware plane later. If that hardware
+-	 * plane uses compression, the results can be very messy.
+-	 *
+-	 * Ensure we have scene graph contents here.
+-	 */
+-	assert(!wl_list_empty(&output->paint_node_z_order_list) &&
+-	       "empty scene graph at repaint");
+-
+ 	wl_list_for_each(pnode, &output->paint_node_z_order_list,
+ 			 z_order_link) {
+ 		assert(pnode->view->output_mask & (1u << pnode->output->id));
+-- 
+2.53.0
+

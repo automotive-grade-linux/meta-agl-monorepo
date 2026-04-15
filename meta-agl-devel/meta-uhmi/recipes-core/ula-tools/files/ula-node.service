@@ -1,0 +1,13 @@
+[Unit]
+Description=ula-node
+
+[Service]
+Type=simple
+User=agl-driver
+ExecStart=/usr/bin/ula-node
+TimeoutStopSec=10
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
