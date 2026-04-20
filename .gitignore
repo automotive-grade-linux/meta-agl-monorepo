@@ -1,0 +1,4 @@
+bitbake/
+meta-openembedded/
+meta-security/
+openembedded-core/

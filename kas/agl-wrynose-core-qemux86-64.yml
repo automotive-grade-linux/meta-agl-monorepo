@@ -1,0 +1,35 @@
+header:
+  version: 10
+
+machine: qemux86-64
+distro: agl
+
+repos:
+  openembedded-core:
+    url: "https://git.openembedded.org/openembedded-core"
+    commit: d9b69d0a2d69e003b9432e1473830a89ff5a06c4
+    layers:
+          meta:
+  bitbake:
+    url: "https://git.openembedded.org/bitbake"
+    commit: 5d722b5d65e4eef7befe6376983385421e993f86
+    layers:
+          bitbake: "disabled"
+  meta-openembedded:
+    url: "https://github.com/openembedded/meta-openembedded.git"
+    commit: 7bf89d06a41405b48fa3af260da36bc686973afc
+    layers:
+          meta-oe:
+          meta-networking:
+          meta-filesystems:
+          meta-python:
+  meta-security:
+    url: "https://git.yoctoproject.org/meta-security"
+    commit: 8028c573db6923525c2918724f2bd36d4a420e0b
+  meta-agl-core:
+    url: "https://github.com/automotive-grade-linux/meta-agl-monorepo.git"
+    path: "meta-agl-core"
+    refspec: "main"
+
+target:
+  - agl-image-minimal
